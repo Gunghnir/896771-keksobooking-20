@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Владимир Серяпов](https://up.htmlacademy.ru/javascript/20/user/896771).
-* Наставник: `Неизвестно`.
+* Наставник: [Мурат Баркинхоев](https://up.htmlacademy.ru/javascript/20/user/896771).
 
 ---
 
