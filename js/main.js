@@ -8,8 +8,8 @@ var MAP_PIN_HEIGHT = 70;
 var TYPES = ['palace', 'flat', 'house', 'bungalo'];
 var ROOMS = ['1', '2', '3'];
 var GUESTS = ['1', '2', '3'];
-var CHECKIN = ['12:00', '13:00', '14:00'];
-var CHECKOUT = ['12:00', '13:00', '14:00'];
+var CHECKIN_TIMES = ['12:00', '13:00', '14:00'];
+var CHECKOUT_TIMES = ['12:00', '13:00', '14:00'];
 var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 var PHOTOS = [
   'http://o0.github.io/assets/images/tokyo/hotel1.jpg',
@@ -64,8 +64,8 @@ var arrData = function () {
         TYPES: getRandomElement(TYPES),
         rooms: getRandomElement(ROOMS),
         guests: getRandomElement(GUESTS),
-        checkin: getRandomElement(CHECKIN),
-        checkout: getRandomElement(CHECKOUT),
+        checkin: getRandomElement(CHECKIN_TIMES),
+        checkout: getRandomElement(CHECKOUT_TIMES),
         features: getRandomArr(FEATURES),
         description: 'строка с описанием',
         photos: getRandomArr(PHOTOS),
