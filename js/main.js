@@ -92,33 +92,30 @@ var setPageActive = function () {
 setPageActive();
 
 // Создадим метки для карты, и заполним их с помощью arrData
-var adsArray = arrData();
+var adsData = arrData();
 var mapPins = document.querySelector('.map__pins');
 
-var createPins = function () {
 // Генерируем один пин, сдвигаем начало координат изображения через style
-  var createPin = function (ads) {
-    var pinContent = document.getElementById('pin').content;
-    var pinElement = pinContent.cloneNode(true);
-    var pin = pinElement.querySelector('.map__pin');
-    var avatar = pinElement.querySelector('img');
+var createPin = function (ads) {
+  var pinContent = document.getElementById('pin').content;
+  var pinElement = pinContent.cloneNode(true);
+  var pin = pinElement.querySelector('.map__pin');
+  var avatar = pinElement.querySelector('img');
 
-    pin.style.left = ads.location.x + 'px';
-    pin.style.marginLeft = (-MAP_PIN_WIDTH / 2) + 'px';
-    pin.style.top = ads.location.y + 'px';
-    pin.style.marginTop = -MAP_PIN_HEIGHT + 'px';
+  pin.style.left = ads.location.x + (-MAP_PIN_WIDTH / 2) + 'px';
+  pin.style.top = ads.location.y - MAP_PIN_HEIGHT + 'px';
+  avatar.src = ads.author.avatar;
+  avatar.alt = ads.offer.title;
 
-    avatar.src = ads.author.avatar;
-    avatar.alt = ads.offer.title;
+  return pinElement;
+};
 
-    return pinElement;
-  };
-
-  // Отрисуем созданные элементы в .mapPins с помощью фрагмента необходимое число раз
+// Отрисуем созданные элементы в .mapPins с помощью фрагмента необходимое число раз
+var createPins = function () {
   var fragment = document.createDocumentFragment();
 
-  for (var i = 0; i < adsArray.length; i++) {
-    fragment.appendChild(createPin(adsArray[i]));
+  for (var i = 0; i < adsData.length; i++) {
+    fragment.appendChild(createPin(adsData[i]));
   }
 
   mapPins.appendChild(fragment);
