@@ -1,6 +1,5 @@
 'use strict';
 
-var MAP_WIDTH = 1200;
 var PIN_NUMBERS = 8;
 var MAP_PIN_WIDTH = 50;
 var MAP_PIN_HEIGHT = 70;
@@ -44,7 +43,7 @@ var getRandomArr = function (arr) {
   return randomArr;
 };
 
-//Функция для создания массива из 8 объектов
+// Функция для создания массива из 8 объектов
 var arrData = function () {
   var adsArr = [];
 
@@ -52,9 +51,9 @@ var arrData = function () {
     var locationX = getRandomInteger(X_MIN, X_MAX);
     var locationY = getRandomInteger(Y_MIN, Y_MAX);
 
-    var adsData ={
+    var adsData = {
       author: {
-        avatar: 'img/avatars/user0' + (i+1) + '.png'
+        avatar: 'img/avatars/user0' + (i + 1) + '.png'
       },
 
       offer: {
@@ -81,19 +80,19 @@ var arrData = function () {
   }
 
   return adsArr;
-}
+};
 
 
 // Делаем карту видимой (с заделом на следующие задания)
 var setPageActive = function () {
   var map = document.querySelector('.map');
   map.classList.remove('map--faded');
-}
+};
 
 setPageActive();
 
 // Создадим метки для карты, и заполним их с помощью arrData
-var adsArray = arrData()
+var adsArray = arrData();
 var mapPins = document.querySelector('.map__pins');
 
 var createPins = function () {
@@ -113,14 +112,14 @@ var createPins = function () {
     avatar.alt = ads.offer.title;
 
     return pinElement;
-  }
+  };
 // Отрисуем созданные элементы в .mapPins с помощью фрагмента необходимое число раз
 
   var fragment = document.createDocumentFragment();
 
-  for (var i=0; i < adsArray.length; i++){
+  for (var i = 0; i < adsArray.length; i++) {
     fragment.appendChild(createPin(adsArray[i]))
-  }
+  };
 
   mapPins.appendChild(fragment);
 };
