@@ -5,7 +5,7 @@ var PIN_NUMBERS = 8;
 var MAP_PIN_WIDTH = 50;
 var MAP_PIN_HEIGHT = 70;
 
-var TYPE = ['palace', 'flat', 'house', 'bungalo'];
+var TYPES = ['palace', 'flat', 'house', 'bungalo'];
 var ROOMS = ['1', '2', '3'];
 var GUESTS = ['1', '2', '3'];
 var CHECKIN = ['12:00', '13:00', '14:00'];
@@ -32,6 +32,18 @@ var getRandomInteger = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
+var getRandomArr = function (arr) {
+  var randomArr = [];
+
+  arr.forEach(function (element) {
+    if (getRandomInteger(0, 1) === 1) {
+      randomArr.push(element);
+    }
+  });
+
+  return randomArr;
+};
+
 //Функция для создания массива из 8 объектов
 var arrData = function () {
   var adsArr = [];
@@ -49,7 +61,7 @@ var arrData = function () {
         title: 'строка, заголовок предложения',
         address: locationX + ', ' + locationY,
         price: getRandomInteger(PRICE_MIN, PRICE_MAX),
-        type: getRandomElement(TYPE),
+        TYPES: getRandomElement(TYPES),
         rooms: getRandomElement(ROOMS),
         guests: getRandomElement(GUESTS),
         checkin: getRandomElement(CHECKIN),
@@ -97,8 +109,8 @@ var createPins = function () {
     pin.style.top = ads.location.y + 'px';
     pin.style.marginTop = -MAP_PIN_HEIGHT + 'px';
 
-    avatar.src = adsData.author.avatar;
-    avatar.alt = adsData.offer.title;
+    avatar.src = ads.author.avatar;
+    avatar.alt = ads.offer.title;
 
     return pinElement;
   }
@@ -114,4 +126,3 @@ var createPins = function () {
 };
 
 createPins()
-
