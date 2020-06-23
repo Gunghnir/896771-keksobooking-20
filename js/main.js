@@ -114,7 +114,7 @@ var createPins = function () {
     return pinElement;
   };
 
-// Отрисуем созданные элементы в .mapPins с помощью фрагмента необходимое число раз
+  // Отрисуем созданные элементы в .mapPins с помощью фрагмента необходимое число раз
   var fragment = document.createDocumentFragment();
 
   for (var i = 0; i < adsArray.length; i++) {
