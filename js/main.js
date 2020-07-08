@@ -102,7 +102,7 @@ var mapPins = document.querySelector('.map__pins');
 
 // module3-task3
 
-var createCard = function(arrFeatures) {
+var createCard = function (arrFeatures) {
   var cardElement = templateCard.cloneNode(true);
   cardElement.querySelector('.popup__title').textContent = arrFeatures.offer.title;
   cardElement.querySelector('.popup__text--address').textContent = arrFeatures.offer.address.x + ',' + arrFeatures.offer.address.y;
@@ -123,14 +123,14 @@ var createCard = function(arrFeatures) {
       break;
     default:
       cardElement.querySelector('.popup__type').textContent = 'Квартира';
-  };
+  }
   cardElement.querySelector('.popup__text--capacity').textContent = arrFeatures.offer.rooms + ' комнаты для ' + arrFeatures.offer.guests + ' гостей';
   cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + arrFeatures.offer.checkin + ', выезд до ' + arrFeatures.offer.checkout;
   cardElement.querySelector('.popup__description').textContent = arrFeatures.offer.description;
   cardElement.querySelector('.popup__avatar').src = arrFeatures.author.avatar;
 
 
-  //Сравним сгенерированный на строке 73 массив с представленным в разметке ненумерованным списком, и оставим совпадения видимыми
+  // Сравним сгенерированный на строке 73 массив с представленным в разметке ненумерованным списком, и оставим совпадения видимыми
   var arrayUl = cardElement.querySelectorAll('.popup__feature');
 
   for (var i = 0; i < arrayUl.length; i++) {
@@ -140,12 +140,12 @@ var createCard = function(arrFeatures) {
         arrayUl[i].classList.add('visually-hidden');
       }
     }
-  };
+  }
 
-  //Заполним <div class="popup__photos">
+  // Заполним <div class="popup__photos">
   var photos = cardElement.querySelector('.popup__photos');
   photos.src = arrFeatures.offer.photos[0];
-  for (var k = 0; k < adsarrFeaturesData.offer.photo.length; k++){
+  for (var k = 0; k < arrFeatures.offer.photos.length; k++) {
     var photo = arrFeatures.offer.photos[k];
     photos.appendChild(photo);
   }
@@ -176,6 +176,7 @@ var createPin = function (ads) {
 };
 
 // Отрисуем созданные элементы в .mapPins с помощью фрагмента необходимое число раз
+var adsData = arrData();
 var createPins = function () {
   var fragment = document.createDocumentFragment();
 
