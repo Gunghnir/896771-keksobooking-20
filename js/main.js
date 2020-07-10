@@ -105,7 +105,7 @@ var mapPins = document.querySelector('.map__pins');
 var createCard = function (arrFeatures) {
   var cardElement = templateCard.cloneNode(true);
   cardElement.querySelector('.popup__title').textContent = arrFeatures.offer.title;
-  cardElement.querySelector('.popup__text--address').textContent = arrFeatures.offer.address.x + ',' + arrFeatures.offer.address.y;
+  cardElement.querySelector('.popup__text--address').textContent = arrFeatures.offer.address;
   cardElement.querySelector('.popup__text--price').textContent = arrFeatures.offer.price + ' ' + String.fromCharCode(8381) + '/ночь';
 
   switch (arrFeatures.offer.type) {
@@ -144,17 +144,20 @@ var createCard = function (arrFeatures) {
 
   // Заполним <div class="popup__photos">
   var photos = cardElement.querySelector('.popup__photos');
-  photos.src = arrFeatures.offer.photos[0];
+  var photo = cardElement.querySelector('.popup__photo');
+  // photo.src = arrFeatures.offer.photos[0];
   for (var k = 0; k < arrFeatures.offer.photos.length; k++) {
-    var photo = arrFeatures.offer.photos[k];
-    photos.appendChild(photo);
+    var img = photo.cloneNode(true);
+    img.src = arrFeatures.offer.photos[k];
+    photos.appendChild(img);
   }
 
   return cardElement;
 };
 
 // Вызовем функцию для создания карточки с информацией, и запишем результат в <section class = "map"> перед <div class="map__filters-container">
-var card = createCard(arrData[0]);
+var adsData = arrData();
+var card = createCard(adsData[0]);
 var map = document.querySelector('.map');
 var filters = map.querySelector('.map__filters-container');
 map.insertBefore(card, filters);
@@ -176,7 +179,6 @@ var createPin = function (ads) {
 };
 
 // Отрисуем созданные элементы в .mapPins с помощью фрагмента необходимое число раз
-var adsData = arrData();
 var createPins = function () {
   var fragment = document.createDocumentFragment();
 
