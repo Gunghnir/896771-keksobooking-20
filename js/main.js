@@ -23,8 +23,34 @@ var PRICE_MIN = 0;
 var PRICE_MAX = 9999999;
 
 // module4-task2
+<<<<<<< Updated upstream
 // Выберем контрол адреса объявления
 var pinMainSelector = document.querySelector('.map__pin--main');
+=======
+// Выберем контрол адреса объявления, инпуты, селекты, филдсеты в ad-form и map__filters
+var pinMainSelector = document.querySelector('.map__pin--main');
+var adForm = document.querySelector('form.ad-form');
+var fieldSets = document.querySelectorAll('form.ad-form > fieldset');
+var mapFilters = document.querySelectorAll('form.map__filters > input, form.map__filters > select, form.map__filters > fieldset,');
+
+// adForm.addEventListener('change', validate) <-- validate будет функцией валидации
+
+// Страница находится в неактивном состоянии при первом открытии
+function nodeDisable(node, status) {
+  for (var i = 0; i < node.length; i++) {
+    if (status === true) {
+      node[i].setAttribute('disabled', true);
+    } else {
+      node[i].removeAttribute('disabled');
+    }
+  }
+}
+
+nodeDisable(fieldSets, true);
+nodeDisable(mapFilters, true);
+
+// Активация по 'mousedown' или 'keydown'
+>>>>>>> Stashed changes
 
 // module3-task3
 
