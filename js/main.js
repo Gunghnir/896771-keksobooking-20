@@ -23,19 +23,17 @@ var PRICE_MIN = 0;
 var PRICE_MAX = 9999999;
 
 // module4-task2
-<<<<<<< Updated upstream
-// Выберем контрол адреса объявления
-var pinMainSelector = document.querySelector('.map__pin--main');
-=======
 // Выберем контрол адреса объявления, инпуты, селекты, филдсеты в ad-form и map__filters
-var pinMainSelector = document.querySelector('.map__pin--main');
+var mapPinMain = document.querySelector('.map__pin--main');
 var adForm = document.querySelector('form.ad-form');
 var fieldSets = document.querySelectorAll('form.ad-form > fieldset');
 var mapFilters = document.querySelectorAll('form.map__filters > input, form.map__filters > select, form.map__filters > fieldset,');
 
-// adForm.addEventListener('change', validate) <-- validate будет функцией валидации
+adForm.addEventListener('change', validate)
 
-// Страница находится в неактивном состоянии при первом открытии
+//Валидация
+
+// Страница находится в неактивном состоянии при открытии
 function nodeDisable(node, status) {
   for (var i = 0; i < node.length; i++) {
     if (status === true) {
@@ -50,7 +48,38 @@ nodeDisable(fieldSets, true);
 nodeDisable(mapFilters, true);
 
 // Активация по 'mousedown' или 'keydown'
->>>>>>> Stashed changes
+mapPinMain.addEventListener('mousedown', clickPinMainButton);
+mapPinMain.addEventListener('keydown', pressPinMainButton);
+
+// Ловим нажатие ЛКМ
+function clickPinMainButton(e) {
+  if (typeof e === 'object') {
+    switch (e.button) {
+      case 0:
+        setPageActive();
+        break;
+      default:
+        break;
+    }
+  }
+}
+
+function pressPinMainButton(evt) {
+  if (evt.key === 'Enter') {
+    setPageActive();
+  }
+}
+
+var map = document.querySelector('.map');
+
+function setPageActive() {
+  nodeDisable(fieldsets, false);
+  nodeDisable(mapFilters, false);
+  adForm.classList.remove('ad-form--disabled');
+  map.classList.remove('map--faded');
+  mapPinMain.removeEventListener('mousedown', clickPinMainButton, false);
+  mapPinMain.removeEventListener('keydown', pressPinMainButton, false);
+}
 
 // module3-task3
 
@@ -118,15 +147,6 @@ var arrData = function () {
 };
 
 
-// Делаем карту видимой (с заделом на следующие задания)
-var setPageActive = function () {
-  var map = document.querySelector('.map');
-  map.classList.remove('map--faded');
-};
-
-setPageActive();
-
-
 // Создадим метки для карты, и заполним их с помощью arrData
 var mapPins = document.querySelector('.map__pins');
 
@@ -188,7 +208,6 @@ var createCard = function (arrFeatures) {
 // Вызовем функцию для создания карточки с информацией, и запишем результат в <section class = "map"> перед <div class="map__filters-container">
 var adsData = arrData();
 var card = createCard(adsData[0]);
-var map = document.querySelector('.map');
 var filters = map.querySelector('.map__filters-container');
 map.insertBefore(card, filters);
 
