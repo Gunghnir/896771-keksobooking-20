@@ -145,7 +145,6 @@ var createCard = function (arrFeatures) {
   // Заполним <div class="popup__photos">
   var photos = cardElement.querySelector('.popup__photos');
   var photo = cardElement.querySelector('.popup__photo');
-  // photo.src = arrFeatures.offer.photos[0];
   for (var k = 0; k < arrFeatures.offer.photos.length; k++) {
     var img = photo.cloneNode(true);
     img.src = arrFeatures.offer.photos[k];
