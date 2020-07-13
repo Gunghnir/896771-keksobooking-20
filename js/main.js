@@ -149,7 +149,7 @@ var createCard = function (arrFeatures) {
     var img = photo.cloneNode(true);
     img.src = arrFeatures.offer.photos[k];
     photos.appendChild(img);
-    photo.remove()
+    photo.remove();
   }
 
   return cardElement;
