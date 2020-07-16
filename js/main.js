@@ -21,6 +21,15 @@ var X_MIN = 0;
 var X_MAX = 1199;
 var PRICE_MIN = 0;
 var PRICE_MAX = 9999999;
+var PIN_MAIN_OFFSET_X = 570;
+var PIN_MAIN_OFFSET_Y = 375;
+
+var MainPinSize = {
+  WIDTH: 62,
+  HEIGHT: 62,
+  ARROW: 18
+};
+var offsetY = MainPinSize.HEIGHT / 2 + MainPinSize.ARROW;
 
 // module4-task2
 // Выберем контрол адреса объявления, инпуты, селекты, филдсеты в ad-form и map__filters
@@ -29,9 +38,31 @@ var adForm = document.querySelector('form.ad-form');
 var fieldSets = document.querySelectorAll('form.ad-form > fieldset');
 var mapFilters = document.querySelectorAll('form.map__filters > input, form.map__filters > select, form.map__filters > fieldset,');
 
-adForm.addEventListener('change', validate)
+// Поле ввода адреса всегда должно быть заполнено. Заполним скриптом, а в разметке добавим свойство readonly, чтобы никто не почистил поле
+var PIN_MAIN_WIDTH = mapPinMain.offsetWidth;
+var PIN_MAIN_HEIGHT = mapPinMain.offsetHeight;
+var inputAddressElement = document.querySelector('#address');
+inputAddressElement.value = Math.round((PIN_MAIN_OFFSET_X + PIN_MAIN_WIDTH / 2)) + ', ' + Math.round((PIN_MAIN_OFFSET_Y + PIN_MAIN_HEIGHT / 2));
 
 //Валидация
+adForm.addEventListener('change', validate)
+
+function validate() {
+  var roomElement = document.querySelector('#room_number');
+  var capacityElement = document.querySelector('#capacity');
+  var roomChecked = roomElement.value;
+  var capacityChecked = capacityElement.value;
+
+  if (roomChecked === '100' && capacityChecked !== '0') {
+    capacityElement.setCustomValidity('При выборе 100 комнат количество мест должно быть "не для гостей"');
+  } else if (roomChecked !== '100' && capacityChecked === '0') {
+    capacityElement.setCustomValidity('Количество мест "не для гостей" только для варианта количества комнат "100 комнат"');
+  } else if (roomChecked < capacityChecked) {
+    capacityElement.setCustomValidity('Количество гостей не должно превышать количества комнат');
+  } else {
+    capacityElement.setCustomValidity('')
+  }
+}
 
 // Страница находится в неактивном состоянии при открытии
 function nodeDisable(node, status) {
@@ -51,6 +82,19 @@ nodeDisable(mapFilters, true);
 mapPinMain.addEventListener('mousedown', clickPinMainButton);
 mapPinMain.addEventListener('keydown', pressPinMainButton);
 
+// Функция активации
+
+var map = document.querySelector('.map');
+
+function setPageActive() {
+  nodeDisable(fieldsets, false);
+  nodeDisable(mapFilters, false);
+  adForm.classList.remove('ad-form--disabled');
+  map.classList.remove('map--faded');
+  mapPinMain.removeEventListener('mousedown', clickPinMainButton, false);
+  mapPinMain.removeEventListener('keydown', pressPinMainButton, false);
+}
+
 // Ловим нажатие ЛКМ
 function clickPinMainButton(e) {
   if (typeof e === 'object') {
@@ -64,22 +108,57 @@ function clickPinMainButton(e) {
   }
 }
 
+// Ловим срабатывание по нажатию на Enter
 function pressPinMainButton(evt) {
   if (evt.key === 'Enter') {
     setPageActive();
   }
 }
 
-var map = document.querySelector('.map');
 
-function setPageActive() {
-  nodeDisable(fieldsets, false);
-  nodeDisable(mapFilters, false);
-  adForm.classList.remove('ad-form--disabled');
-  map.classList.remove('map--faded');
-  mapPinMain.removeEventListener('mousedown', clickPinMainButton, false);
-  mapPinMain.removeEventListener('keydown', pressPinMainButton, false);
-}
+// Стартовая координата метки
+var addressDefaultCoords = {
+  left: parseInt(mainPinLeft, 10),
+  top: parseInt(mainPinTop, 10) + offsetY
+};
+
+// Обработка перемещений мыши (на будущее задание)
+
+// var onMouseMove = function (moveEvt) {
+//   moveEvt.preventDefault();
+
+//   // Рассчитывает смещение относительно стартовой точки
+//   var shift = {
+//     x: startCoords.x - moveEvt.clientX,
+//     y: startCoords.y - moveEvt.clientY
+//   };
+
+//   // Обновляет координаты стартовой точки
+//   startCoords = {
+//     x: moveEvt.clientX,
+//     y: moveEvt.clientY
+//   };
+
+//   // Рассчитывает положение перемещаемого элемента
+//   var currentCoords = {
+//     x: mainPin.offsetLeft - shift.x,
+//     y: mainPin.offsetTop - shift.y
+//   };
+
+//   // Перемещает элемент при условии вхождения в заданную область перемещения
+//   if (currentCoords.x >= MainPinSize.WIDTH / 2 &&
+//     currentCoords.x <= map.clientWidth - MainPinSize.WIDTH / 2 &&
+//     currentCoords.y + offsetY >= CoordY.MIN &&
+//     currentCoords.y + offsetY <= CoordY.MAX) {
+
+//     mainPin.style.left = currentCoords.x + 'px';
+//     mainPin.style.top = currentCoords.y + 'px';
+
+//     // Заносит в поле с адресом текущее положение элемента 'Главный пин'
+//     // с поправкой на размер элемента
+//     window.form.setAddress(currentCoords.x, currentCoords.y + offsetY);
+//   }
+// };
 
 // module3-task3
 
