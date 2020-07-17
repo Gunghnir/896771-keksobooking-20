@@ -29,7 +29,7 @@ var MainPinSize = {
   HEIGHT: 62,
   ARROW: 18
 };
-var offsetY = MainPinSize.HEIGHT / 2 + MainPinSize.ARROW;
+// var offsetY = MainPinSize.HEIGHT / 2 + MainPinSize.ARROW;
 
 // module4-task2
 // Выберем контрол адреса объявления, инпуты, селекты, филдсеты в ad-form и map__filters
@@ -87,7 +87,7 @@ mapPinMain.addEventListener('keydown', pressPinMainButton);
 var map = document.querySelector('.map');
 
 function setPageActive() {
-  nodeDisable(fieldsets, false);
+  nodeDisable(fieldSets, false);
   nodeDisable(mapFilters, false);
   adForm.classList.remove('ad-form--disabled');
   map.classList.remove('map--faded');
