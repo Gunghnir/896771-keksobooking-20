@@ -36,7 +36,7 @@ var PIN_MAIN_OFFSET_Y = 375;
 var mapPinMain = document.querySelector('.map__pin--main');
 var adForm = document.querySelector('form.ad-form');
 var fieldSets = adForm.querySelectorAll('fieldset');
-var mapFilters = document.querySelectorAll('form.map__filters > input, form.map__filters > select, form.map__filters > fieldsetx`');
+var mapFilters = document.querySelectorAll('form.map__filters > input, form.map__filters > select, form.map__filters > fieldset');
 
 // Поле ввода адреса всегда должно быть заполнено. Заполним скриптом, а в разметке добавим свойство readonly, чтобы никто не почистил поле
 var PIN_MAIN_WIDTH = mapPinMain.offsetWidth;
