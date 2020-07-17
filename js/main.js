@@ -24,12 +24,12 @@ var PRICE_MAX = 9999999;
 var PIN_MAIN_OFFSET_X = 570;
 var PIN_MAIN_OFFSET_Y = 375;
 
-var MainPinSize = {
-  WIDTH: 62,
-  HEIGHT: 62,
-  ARROW: 18
-};
-// var offsetY = MainPinSize.HEIGHT / 2 + MainPinSize.ARROW;
+// var MainPinSize = {
+//   WIDTH: 62,
+//   HEIGHT: 62,
+//   ARROW: 18
+// };
+// // var offsetY = MainPinSize.HEIGHT / 2 + MainPinSize.ARROW;
 
 // module4-task2
 // Выберем контрол адреса объявления, инпуты, селекты, филдсеты в ad-form и map__filters
