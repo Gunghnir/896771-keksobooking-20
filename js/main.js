@@ -36,7 +36,7 @@ var offsetY = MainPinSize.HEIGHT / 2 + MainPinSize.ARROW;
 var mapPinMain = document.querySelector('.map__pin--main');
 var adForm = document.querySelector('form.ad-form');
 var fieldSets = adForm.querySelectorAll('fieldset');
-var mapFilters = document.querySelectorAll('form.map__filters > input, form.map__filters > select, form.map__filters > fieldset');
+var mapFilters = document.querySelectorAll('form.map__filters > input, form.map__filters > select, form.map__filters > fieldsetx`');
 
 // Поле ввода адреса всегда должно быть заполнено. Заполним скриптом, а в разметке добавим свойство readonly, чтобы никто не почистил поле
 var PIN_MAIN_WIDTH = mapPinMain.offsetWidth;
@@ -44,8 +44,8 @@ var PIN_MAIN_HEIGHT = mapPinMain.offsetHeight;
 var inputAddressElement = document.querySelector('#address');
 inputAddressElement.value = Math.round((PIN_MAIN_OFFSET_X + PIN_MAIN_WIDTH / 2)) + ', ' + Math.round((PIN_MAIN_OFFSET_Y + PIN_MAIN_HEIGHT / 2));
 
-//Валидация
-adForm.addEventListener('change', validate)
+// Валидация
+adForm.addEventListener('change', validate);
 
 function validate() {
   var roomElement = document.querySelector('#room_number');
@@ -60,7 +60,7 @@ function validate() {
   } else if (roomChecked < capacityChecked) {
     capacityElement.setCustomValidity('Количество гостей не должно превышать количества комнат');
   } else {
-    capacityElement.setCustomValidity('')
+    capacityElement.setCustomValidity('');
   }
 }
 
@@ -117,10 +117,10 @@ function pressPinMainButton(evt) {
 
 
 // Стартовая координата метки
-var addressDefaultCoords = {
-  left: parseInt(mainPinLeft, 10),
-  top: parseInt(mainPinTop, 10) + offsetY
-};
+// var addressDefaultCoords = {
+//   left: parseInt(mainPinLeft, 10),
+//   top: parseInt(mainPinTop, 10) + offsetY
+// };
 
 // Обработка перемещений мыши (на будущее задание)
 
@@ -159,10 +159,6 @@ var addressDefaultCoords = {
 //     window.form.setAddress(currentCoords.x, currentCoords.y + offsetY);
 //   }
 // };
-
-// module3-task3
-
-var templateCard = document.querySelector('#card').content.querySelector('.map__card');
 
 // module3-task3
 
@@ -359,7 +355,6 @@ var createCard = function (arrFeatures) {
 // Вызовем функцию для создания карточки с информацией, и запишем результат в <section class = "map"> перед <div class="map__filters-container">
 var adsData = arrData();
 var card = createCard(adsData[0]);
-var map = document.querySelector('.map');
 var filters = map.querySelector('.map__filters-container');
 map.insertBefore(card, filters);
 
