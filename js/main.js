@@ -35,8 +35,8 @@ var offsetY = MainPinSize.HEIGHT / 2 + MainPinSize.ARROW;
 // Выберем контрол адреса объявления, инпуты, селекты, филдсеты в ad-form и map__filters
 var mapPinMain = document.querySelector('.map__pin--main');
 var adForm = document.querySelector('form.ad-form');
-var fieldSets = document.querySelectorAll('form.ad-form > fieldset');
-var mapFilters = document.querySelectorAll('form.map__filters > input, form.map__filters > select, form.map__filters > fieldset,');
+var fieldSets = adForm.querySelectorAll('fieldset');
+var mapFilters = document.querySelectorAll('form.map__filters > input, form.map__filters > select, form.map__filters > fieldset');
 
 // Поле ввода адреса всегда должно быть заполнено. Заполним скриптом, а в разметке добавим свойство readonly, чтобы никто не почистил поле
 var PIN_MAIN_WIDTH = mapPinMain.offsetWidth;
