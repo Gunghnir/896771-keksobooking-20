@@ -77,6 +77,7 @@ function nodeDisable(node, status) {
 
 nodeDisable(fieldSets, true);
 nodeDisable(mapFilters, true);
+// nodeDisable(mapPins,true);
 
 // Активация по 'mousedown' или 'keydown'
 mapPinMain.addEventListener('mousedown', clickPinMainButton);
@@ -93,6 +94,8 @@ function setPageActive() {
   map.classList.remove('map--faded');
   mapPinMain.removeEventListener('mousedown', clickPinMainButton, false);
   mapPinMain.removeEventListener('keydown', pressPinMainButton, false);
+  createPins();
+  map.insertBefore(card, filters);
 }
 
 // Ловим нажатие ЛКМ
@@ -231,74 +234,6 @@ var mapPins = document.querySelector('.map__pins');
 
 // module3-task3
 
-// <<<<<<< module4-task2
-// var createCard = function (arrFeatures) {
-//   var cardElement = templateCard.cloneNode(true);
-//   cardElement.querySelector('.popup__title').textContent = arrFeatures.offer.title;
-//   cardElement.querySelector('.popup__text--address').textContent = arrFeatures.offer.address;
-//   cardElement.querySelector('.popup__text--price').textContent = arrFeatures.offer.price + ' ' + String.fromCharCode(8381) + '/ночь';
-
-//   switch (arrFeatures.offer.type) {
-//     case 'flat' :
-//       cardElement.querySelector('.popup__type').textContent = 'Квартира';
-//       break;
-//     case 'palace' :
-//       cardElement.querySelector('.popup__type').textContent = 'Дворец';
-//       break;
-//     case 'house' :
-//       cardElement.querySelector('.popup__type').textContent = 'Дом';
-//       break;
-//     case 'bungalo' :
-//       cardElement.querySelector('.popup__type').textContent = 'Бунгало';
-//       break;
-//     default:
-//       cardElement.querySelector('.popup__type').textContent = 'Квартира';
-//   }
-//   cardElement.querySelector('.popup__text--capacity').textContent = arrFeatures.offer.rooms + ' комнаты для ' + arrFeatures.offer.guests + ' гостей';
-//   cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + arrFeatures.offer.checkin + ', выезд до ' + arrFeatures.offer.checkout;
-//   cardElement.querySelector('.popup__description').textContent = arrFeatures.offer.description;
-//   cardElement.querySelector('.popup__avatar').src = arrFeatures.author.avatar;
-
-
-//   // Сравним сгенерированный на строке 73 массив с представленным в разметке ненумерованным списком, и оставим совпадения видимыми
-//   var arrayUl = cardElement.querySelectorAll('.popup__feature');
-
-//   for (var i = 0; i < arrayUl.length; i++) {
-
-//     for (var j = 0; j < arrFeatures.offer.features.length; j++) {
-//       if (!arrayUl[i].matches('.popup__feature--' + arrFeatures.offer.features[i])) {
-//         arrayUl[i].classList.add('visually-hidden');
-//       }
-//     }
-//   }
-
-//   // Заполним <div class="popup__photos">
-//   var photos = cardElement.querySelector('.popup__photos');
-//   var photo = cardElement.querySelector('.popup__photo');
-//   // photo.src = arrFeatures.offer.photos[0];
-//   for (var k = 0; k < arrFeatures.offer.photos.length; k++) {
-//     var img = photo.cloneNode(true);
-//     img.src = arrFeatures.offer.photos[k];
-//     photos.appendChild(img);
-//   }
-
-//   return cardElement;
-// };
-
-// // Вызовем функцию для создания карточки с информацией, и запишем результат в <section class = "map"> перед <div class="map__filters-container">
-// var adsData = arrData();
-// var card = createCard(adsData[0]);
-// var filters = map.querySelector('.map__filters-container');
-// map.insertBefore(card, filters);
-
-// =======
-
-// // Создадим метки для карты, и заполним их с помощью arrData
-// var mapPins = document.querySelector('.map__pins');
-// >>>>>>> master
-
-// module3-task3
-
 var createCard = function (arrFeatures) {
   var cardElement = templateCard.cloneNode(true);
   cardElement.querySelector('.popup__title').textContent = arrFeatures.offer.title;
@@ -356,7 +291,7 @@ var createCard = function (arrFeatures) {
 var adsData = arrData();
 var card = createCard(adsData[0]);
 var filters = map.querySelector('.map__filters-container');
-map.insertBefore(card, filters);
+// map.insertBefore(card, filters);
 
 
 // Генерируем один пин, сдвигаем начало координат изображения через style
@@ -385,4 +320,4 @@ var createPins = function () {
   mapPins.appendChild(fragment);
 };
 
-createPins();
+// createPins();
