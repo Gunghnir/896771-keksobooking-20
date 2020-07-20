@@ -23,6 +23,7 @@ var PRICE_MIN = 0;
 var PRICE_MAX = 9999999;
 var PIN_MAIN_OFFSET_X = 570;
 var PIN_MAIN_OFFSET_Y = 375;
+var ESCAPE_KEYCODE = 27;
 
 // var MainPinSize = {
 //   WIDTH: 62,
@@ -111,10 +112,12 @@ function clickPinMainButton(e) {
   }
 }
 
-// Ловим срабатывание по нажатию на Enter
+// Ловим обработку по нажатию на Enter и Esc
 function pressPinMainButton(evt) {
   if (evt.key === 'Enter') {
     setPageActive();
+  } else if (evt.keyCode === 'ESCAPE_KEYCODE') {
+    activeCard.classList.add('hidden');
   }
 }
 
@@ -319,10 +322,20 @@ var createPins = function () {
   mapPins.appendChild(fragment);
 };
 
-  // Module4-Task3 Закрытие всплывающего окна
+// Module4-Task3 Закрытие всплывающего окна
+// По клику
 var activeCard = document.querySelector('popup');
 var closePopupButton = document.querySelector('.popup__close');
 
 closePopupButton.onclick = function() {
   activeCard.classList.add('hidden');
-}
+};
+
+// По ESC
+// function pressPinMainButton(evt) {
+//   if (evt.keyCode === 'ESCAPE_KEYCODE') {
+//     activeCard.classList.add('hidden');
+//   }
+// }
+
+// mapPinMain.addEventListener('keydown', pressPinMainButton);
