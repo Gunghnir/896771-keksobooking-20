@@ -118,7 +118,6 @@ function pressPinMainButton(evt) {
   }
 }
 
-
 // Стартовая координата метки
 // var addressDefaultCoords = {
 //   left: parseInt(mainPinLeft, 10),
@@ -320,4 +319,10 @@ var createPins = function () {
   mapPins.appendChild(fragment);
 };
 
-// createPins();
+  // Module4-Task3 Закрытие всплывающего окна
+var activeCard = document.querySelector('popup');
+var closePopupButton = document.querySelector('.popup__close');
+
+closePopupButton.onclick = function() {
+  activeCard.classList.add('hidden');
+}
