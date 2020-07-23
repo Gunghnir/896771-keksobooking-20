@@ -65,7 +65,7 @@ function validateRoomNumber() {
   }
 }
 
-// Module4-Task3 - добавим
+// Module4-Task3 - добавим валидацию цен
 function validatePrice() {
   var houseTypeElement = document.querySelector('#type');
   var priceElement = document.querySelector('#price');
