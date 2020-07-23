@@ -46,9 +46,9 @@ var inputAddressElement = document.querySelector('#address');
 inputAddressElement.value = Math.round((PIN_MAIN_OFFSET_X + PIN_MAIN_WIDTH / 2)) + ', ' + Math.round((PIN_MAIN_OFFSET_Y + PIN_MAIN_HEIGHT / 2));
 
 // Валидация
-adForm.addEventListener('change', validate);
+adForm.addEventListener('change', validateForm);
 
-function validate() {
+function validateRoomNumber() {
   var roomElement = document.querySelector('#room_number');
   var capacityElement = document.querySelector('#capacity');
   var roomChecked = roomElement.value;
@@ -63,6 +63,29 @@ function validate() {
   } else {
     capacityElement.setCustomValidity('');
   }
+}
+
+// Module4-Task3 - добавим
+function validatePrice() {
+  var houseTypeElement = document.querySelector('#type');
+  var priceElement = document.querySelector('#price');
+  var houseType = houseTypeElement.value;
+  var price = priceElement.value;
+
+  if (houseType === 'flat' && price < 1000) {
+    priceElement.setCustomValidity('Минимальная цена для квартиры - 1 000');
+  } else if (houseType === 'house' && price < 5000) {
+    priceElement.setCustomValidity('Минимальная цена для дома - 5 000');
+  } else if (houseType === 'palace' && price < 10000) {
+    priceElement.setCustomValidity('Минимальная цена для дворца - 10 000');
+  } else {
+    priceElement.setCustomValidity('');
+  }
+}
+
+function validateForm() {
+  validateRoomNumber();
+  validatePrice();
 }
 
 // Страница находится в неактивном состоянии при открытии
@@ -96,7 +119,7 @@ function setPageActive() {
   mapPinMain.removeEventListener('mousedown', clickPinMainButton, false);
   mapPinMain.removeEventListener('keydown', pressPinMainButton, false);
   createPins();
-  map.insertBefore(card, filters);
+  // map.insertBefore(card, filters);
 }
 
 // Ловим нажатие ЛКМ
@@ -112,58 +135,12 @@ function clickPinMainButton(e) {
   }
 }
 
-// Ловим обработку по нажатию на Enter и Esc
+// Ловим обработку по нажатию на Enter
 function pressPinMainButton(evt) {
   if (evt.key === 'Enter') {
     setPageActive();
-  } else if (evt.keyCode === 'ESCAPE_KEYCODE') {
-    activeCard.classList.add('hidden');
   }
 }
-
-// Стартовая координата метки
-// var addressDefaultCoords = {
-//   left: parseInt(mainPinLeft, 10),
-//   top: parseInt(mainPinTop, 10) + offsetY
-// };
-
-// Обработка перемещений мыши (на будущее задание)
-
-// var onMouseMove = function (moveEvt) {
-//   moveEvt.preventDefault();
-
-//   // Рассчитывает смещение относительно стартовой точки
-//   var shift = {
-//     x: startCoords.x - moveEvt.clientX,
-//     y: startCoords.y - moveEvt.clientY
-//   };
-
-//   // Обновляет координаты стартовой точки
-//   startCoords = {
-//     x: moveEvt.clientX,
-//     y: moveEvt.clientY
-//   };
-
-//   // Рассчитывает положение перемещаемого элемента
-//   var currentCoords = {
-//     x: mainPin.offsetLeft - shift.x,
-//     y: mainPin.offsetTop - shift.y
-//   };
-
-//   // Перемещает элемент при условии вхождения в заданную область перемещения
-//   if (currentCoords.x >= MainPinSize.WIDTH / 2 &&
-//     currentCoords.x <= map.clientWidth - MainPinSize.WIDTH / 2 &&
-//     currentCoords.y + offsetY >= CoordY.MIN &&
-//     currentCoords.y + offsetY <= CoordY.MAX) {
-
-//     mainPin.style.left = currentCoords.x + 'px';
-//     mainPin.style.top = currentCoords.y + 'px';
-
-//     // Заносит в поле с адресом текущее положение элемента 'Главный пин'
-//     // с поправкой на размер элемента
-//     window.form.setAddress(currentCoords.x, currentCoords.y + offsetY);
-//   }
-// };
 
 // module3-task3
 
@@ -286,15 +263,33 @@ var createCard = function (arrFeatures) {
     photo.remove();
   }
 
+  // ищем кнопку закрытия карточки и вешаем ей слушатель по клику
+  var popupClose = cardElement.querySelector('.popup__close');
+  popupClose.addEventListener('click', removeCard);
+
+  // закрываем элемент по нажатию на клавишу Esc)
+  cardElement.addEventListener('keydown', onEscPress);
+  function onEscPress(evt) {
+    if (evt.key === 'ESCAPE_KEYCODE') {
+      removeCard();
+    }
+  }
+
   return cardElement;
 };
 
+//Функция отключения открытой карточки
+function removeCard() {
+  if (templateCard !== null) {
+    // templateCard.parentElement.removeChild(templateCard);
+    templateCard.classList.add('hidden');
+  }
+}
+
 // Вызовем функцию для создания карточки с информацией, и запишем результат в <section class = "map"> перед <div class="map__filters-container">
 var adsData = arrData();
-var card = createCard(adsData[0]);
+// var card = createCard(adsData[0]);
 var filters = map.querySelector('.map__filters-container');
-// map.insertBefore(card, filters);
-
 
 // Генерируем один пин, сдвигаем начало координат изображения через style
 var createPin = function (ads) {
@@ -322,20 +317,20 @@ var createPins = function () {
   mapPins.appendChild(fragment);
 };
 
-// Module4-Task3 Закрытие всплывающего окна
-// По клику
-var activeCard = document.querySelector('popup');
-var closePopupButton = document.querySelector('.popup__close');
+// Module4-Task3
+// По нажатию на пин должны появляться карточки.
+var currentMapPins = mapPins.querySelectorAll('button[type=button]');
 
-closePopupButton.onclick = function() {
-  activeCard.classList.add('hidden');
+for (var i = 0; i < currentMapPins.length; i++) {
+  currentMapPins[i].addEventListener('click', function () {
+    //Если какая-то карточка уже открыта, она должна закрыться в момент открытия новой
+    removeCard()
+
+    for (var j = 0; j < currentMapPins.length; j++) {
+      var card = createCard(adsData[j])
+    }
+
+    map.insertBefore(card, filters)
+  })
 };
 
-// По ESC
-// function pressPinMainButton(evt) {
-//   if (evt.keyCode === 'ESCAPE_KEYCODE') {
-//     activeCard.classList.add('hidden');
-//   }
-// }
-
-// mapPinMain.addEventListener('keydown', pressPinMainButton);
