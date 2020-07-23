@@ -270,7 +270,7 @@ var createCard = function (arrFeatures) {
   // закрываем элемент по нажатию на клавишу Esc)
   cardElement.addEventListener('keydown', onEscPress);
   function onEscPress(evt) {
-    if (evt.key === 'ESCAPE_KEYCODE') {
+    if (evt.key === ESCAPE_KEYCODE) {
       removeCard();
     }
   }
@@ -278,7 +278,7 @@ var createCard = function (arrFeatures) {
   return cardElement;
 };
 
-//Функция отключения открытой карточки
+// Функция отключения открытой карточки
 function removeCard() {
   if (templateCard !== null) {
     // templateCard.parentElement.removeChild(templateCard);
@@ -323,14 +323,14 @@ var currentMapPins = mapPins.querySelectorAll('button[type=button]');
 
 for (var i = 0; i < currentMapPins.length; i++) {
   currentMapPins[i].addEventListener('click', function () {
-    //Если какая-то карточка уже открыта, она должна закрыться в момент открытия новой
-    removeCard()
+    // Если какая-то карточка уже открыта, она должна закрыться в момент открытия новой
+    removeCard();
 
     for (var j = 0; j < currentMapPins.length; j++) {
-      var card = createCard(adsData[j])
+      var card = createCard(adsData[j]);
     }
 
-    map.insertBefore(card, filters)
-  })
-};
+    map.insertBefore(card, filters);
+  });
+}
 
